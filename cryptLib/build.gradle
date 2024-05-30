@@ -53,7 +53,7 @@ afterEvaluate {
         publications {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
-//                from components.release
+                from components.release
                 groupId = 'com.github.jitpack'
                 artifactId = 'android-crypto'
                 version = '1.0'
