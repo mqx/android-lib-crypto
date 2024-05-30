@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Crypto</string>
-    <string name="aes_enc">Aes加密</string>
-    <string name="aes_dec">Aes解密</string>
-</resources>
