@@ -15,6 +15,9 @@ public class Aes {
     private String mAlgorithm = "AES/ECB/PKCS5Padding";
     private byte[] mIv = new byte[16];
 
+    public void setAlgorithm(String algorithm){
+        mAlgorithm = algorithm;
+    }
     public byte[] enc(byte[] data, byte[] key) throws Exception{
         return doAes(true, data, key, 32, mIv, mAlgorithm);
     }
@@ -28,11 +31,19 @@ public class Aes {
         SecretKeySpec keySpec = new SecretKeySpec(key, 0, keyLen, algorithm);
 
         Cipher cipher = Cipher.getInstance(algorithm);//Default "AES/ECB/PKCS5Padding"
-        IvParameterSpec ivParam = new IvParameterSpec(iv);
-        if (isEnc)
-            cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivParam);
-        else
-            cipher.init(Cipher.DECRYPT_MODE, keySpec, ivParam);
+        if (mAlgorithm.contains("ECB")){
+            if (isEnc)
+                cipher.init(Cipher.ENCRYPT_MODE, keySpec);
+            else
+                cipher.init(Cipher.DECRYPT_MODE, keySpec);
+        }else{
+            IvParameterSpec ivParam = new IvParameterSpec(iv);
+            if (isEnc)
+                cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivParam);
+            else
+                cipher.init(Cipher.DECRYPT_MODE, keySpec, ivParam);
+        }
+
         return cipher.doFinal(data);
     }
 }
