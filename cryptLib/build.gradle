@@ -11,6 +11,8 @@ plugins {
     id 'com.android.library'
     id 'maven-publish'
 }
+group = 'com.github.jitpack'
+version = '1.0'
 
 android {
     namespace 'com.mtsxyz.cryptlib'
@@ -43,4 +45,18 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+//                from components.release
+                groupId = 'com.github.jitpack'
+                artifactId = 'android-crypto'
+                version = '1.0'
+            }
+        }
+    }
 }
