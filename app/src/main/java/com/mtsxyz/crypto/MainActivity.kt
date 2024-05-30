@@ -10,7 +10,7 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.bt_aes_enc).setOnClickListener {
-            val aes = Aes()
+
         }
         findViewById<Button>(R.id.bt_aes_dec).setOnClickListener {
 
