@@ -8,5 +8,7 @@ package com.mtsxyz.cryptlib;
  ** ****************************************************/
 
 public class Aes {
-
+    public String test(){
+        return "test";
+    }
 }
