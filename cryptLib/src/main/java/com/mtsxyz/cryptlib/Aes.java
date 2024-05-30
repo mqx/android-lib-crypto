@@ -7,8 +7,32 @@ package com.mtsxyz.cryptlib;
  ** Copyright: 2024 www.mtsxyz.com All rights reserved.
  ** ****************************************************/
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 public class Aes {
-    public String test(){
-        return "test";
+    private String mAlgorithm = "AES/ECB/PKCS5Padding";
+    private byte[] mIv = new byte[16];
+
+    public byte[] enc(byte[] data, byte[] key) throws Exception{
+        return doAes(true, data, key, 32, mIv, mAlgorithm);
+    }
+
+    public byte[] dec(byte[] data, byte[] key) throws Exception{
+        return doAes(false, data, key, 32, mIv, mAlgorithm);
+    }
+
+    private byte[] doAes(boolean isEnc, byte[] data, byte[] key, int keyLen, byte[] iv,
+                               String algorithm) throws Exception {
+        SecretKeySpec keySpec = new SecretKeySpec(key, 0, keyLen, algorithm);
+
+        Cipher cipher = Cipher.getInstance(algorithm);//Default "AES/ECB/PKCS5Padding"
+        IvParameterSpec ivParam = new IvParameterSpec(iv);
+        if (isEnc)
+            cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivParam);
+        else
+            cipher.init(Cipher.DECRYPT_MODE, keySpec, ivParam);
+        return cipher.doFinal(data);
     }
 }
